@@ -162,7 +162,7 @@ MainWindow::MainWindow(QString title, int n){
     matriciesAdd->addWidget(matrix3);
     matrix1->setLayout(grigliaAdd1);
     matrix2->setLayout(grigliaAdd2);
-    matrix3->setLayout(grigliaAdd3);
+    matrix3 ->setLayout(grigliaAdd3);
     addMatrixFrame->setLayout(matriciesAdd);
     additionLayout->addWidget(addMatrixFrame);
 
