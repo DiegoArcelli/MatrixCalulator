@@ -12,6 +12,8 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::MainWindow(QString title, int n){
 
     this->setWindowTitle(title);
+    c1 = n;
+    r1 = n;
     QWidget *selectorFrame = new QWidget(this); //frame del selezionatore
     QWidget *mainFrame = new QWidget(this); //frame della parte operativa
     QGridLayout *frameLayout = new QGridLayout(); //layout della finestra
@@ -67,17 +69,14 @@ MainWindow::MainWindow(QString title, int n){
 
 
     QGridLayout *griglia = new QGridLayout();
-    //QLineEdit *matrix[n][n];
-    QVector<QVector<QLineEdit*>> matrix;
-    for(int i=0;i<n;i++){
+    for(int i=0;i<c1;i++){
         matrix.append(QVector<QLineEdit*>());
-        for(int j=0;j<n;j++){
+        for(int j=0;j<c1;j++){
             matrix[i].append(new QLineEdit);
         }
     }
-    for(int i=0;i<n;i++){
-        for(int j=0;j<n;j++){
-            //matrix[i][j] = new QLineEdit();
+    for(int i=0;i<c1;i++){
+        for(int j=0;j<c1;j++){
             matrix[i][j]->setFixedSize(30,30);
             matrix[i][j]->setText("0");
             matrix[i][j]->setAlignment(Qt::AlignCenter);
@@ -98,23 +97,62 @@ MainWindow::MainWindow(QString title, int n){
     determinatLayout->addWidget(resultFrame);
 
     this->connect(calc,&QPushButton::clicked,
-        [this, resultLabel, n, matrix](){
-            calculateDeterminant(resultLabel,n,matrix);
+        [this, resultLabel](){
+            calculateDeterminant(resultLabel);
+        }
+    );
+
+    this->connect(resize,&QPushButton::clicked,
+        [this,griglia,dim,matrixFrame](){
+            resizeDeterminantMatrix(griglia,dim,matrixFrame);
         }
     );
 
 }
 
-void MainWindow::calculateDeterminant(QLabel *label, int n, QVector<QVector<QLineEdit*>> matrix){
-    Matrix m(n);
-    for(int i=0;i<n;i++){
-        for(int j=0;j<n;j++){
-            m.setCella(i,j,matrix[i][j]->text().toInt());
+void MainWindow::calculateDeterminant(QLabel *label){
+    Matrix m(c1);
+    for(int i=0;i<c1;i++){
+        for(int j=0;j<c1;j++){
+            qDebug() << c1;
+            int x = matrix.at(i).at(j)->text().toInt();
+            m.setCella(i,j,x);
         }
     }
     int det = m.calcolaDeterminanteRicorsiva();
-    label->setText(QString::number(det));
+    label->setText("Determinat: " + QString::number(det));
 
+}
+
+void MainWindow::resizeDeterminantMatrix(QGridLayout *griglia, QLineEdit* dim, QWidget *matrixFrame){
+    int x = dim->text().toInt();
+    for(int i=0;i<c1;i++){
+        for(int j=0;j<c1;j++){
+            delete matrix[i][j];
+        }
+    }
+    matrix.clear();
+    c1 = x;
+    r1 = x;
+    delete griglia;
+    griglia = new QGridLayout();
+    for(int i=0;i<c1;i++){
+        matrix.append(QVector<QLineEdit*>());
+        for(int j=0;j<c1;j++){
+            matrix[i].append(new QLineEdit);
+        }
+    }
+    for(int i=0;i<c1;i++){
+        for(int j=0;j<c1;j++){
+            matrix[i][j]->setFixedSize(30,30);
+            matrix[i][j]->setText("0");
+            matrix[i][j]->setAlignment(Qt::AlignCenter);
+            griglia->addWidget(matrix[i][j],i,j);
+        }
+    }
+    matrixFrame->setLayout(griglia);
+    griglia->update();
+    matrixFrame->update();
 }
 
 MainWindow::~MainWindow()

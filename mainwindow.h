@@ -12,6 +12,7 @@
 #include <QLabel>
 #include <QHBoxLayout>
 #include <QSignalMapper>
+#include <QDebug>
 
 namespace Ui {
 class MainWindow;
@@ -25,10 +26,18 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     MainWindow(QString title, int n);
-private slots:
-   void calculateDeterminant(QLabel *label, int n, QVector<QVector<QLineEdit*>> matrix);
+    void setR1(int n);
+    void setC1(int n);
+    int getC1();
+    int getR2();
+public slots:
+   void calculateDeterminant(QLabel *label);
+   void resizeDeterminantMatrix(QGridLayout *griglia, QLineEdit* dim, QWidget *matrixFrame);
 private:
     Ui::MainWindow *ui;
+    QVector<QVector<QLineEdit*>> matrix;
+    int r1;
+    int c1;
 };
 
 #endif // MAINWINDOW_H
