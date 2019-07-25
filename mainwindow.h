@@ -36,6 +36,9 @@ public slots:
 private:
     Ui::MainWindow *ui;
     QVector<QVector<QLineEdit*>> matrix;
+    QVector<QVector<QLineEdit*>> add1;
+    QVector<QVector<QLineEdit*>> add2;
+    QVector<QVector<QLineEdit*>> resAdd;
     int r1;
     int c1;
 };

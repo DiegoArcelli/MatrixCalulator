@@ -28,31 +28,29 @@ MainWindow::MainWindow(QString title, int n){
     comb->addItem("Determinant");
     comb->addItem("Addition");
     comb->addItem("Multiplication");
-    QPushButton *conf = new QPushButton("Confirm"); //tasto di conferma operazioni
     selectorLayout->addWidget(comb); //aggiunge alla finestra del selettore il menu a tendida di selezione
-    selectorLayout->addWidget(conf); //aggiunge alla finestra del selettore il tasto di conferma dell'operazione
     selectorFrame->setLayout(selectorLayout); //imposto al frame del selettore il layoyt orizzontale
     comb->setFixedWidth(120); //larghezza combo box
-    conf->setFixedWidth(100); //larghezza tasto di conferma
     QPalette pal;
     //pal.setColor(QPalette::Background,Qt::white);
     selectorFrame->setAutoFillBackground(true);
     selectorFrame->setPalette(pal);
 
+    QVBoxLayout *mainLayout = new QVBoxLayout;
     QStackedLayout *stackedLayout = new QStackedLayout; //layout a pila del frame operativo
-    mainFrame->setLayout(stackedLayout); //adda il layout al frame operativo
-    QWidget *determinat = new QWidget(mainFrame); //tre sottofinestre della pila
+    mainFrame->setLayout(mainLayout); //adda il layout al frame operativo
+    QWidget *determinat = new QWidget(); //tre sottofinestre della pila
     QWidget *addition = new QWidget();
     QWidget *multiplication = new QWidget();
     stackedLayout->addWidget(determinat); //adda le tre sotto finestre al frame operativo
-    //stackedLayout->addWidget(addition);
-    //stackedLayout->addWidget(multiplication);
+    stackedLayout->addWidget(addition);
+    stackedLayout->addWidget(multiplication);
     QWidget *matrixFrame = new QWidget(determinat); //crea il frame della matrice
-    QVBoxLayout *determinatLayout = new QVBoxLayout; // imposta
+    QVBoxLayout *determinatLayout = new QVBoxLayout; //imposta
     determinat->setLayout(determinatLayout);
     determinatLayout->addWidget(matrixFrame);
-
-
+    mainLayout->addLayout(stackedLayout);
+    connect(comb, SIGNAL(activated(int)),stackedLayout, SLOT(setCurrentIndex(int)));
     QWidget *pulsantiera = new QWidget;
     QLabel *descr = new QLabel("Insert matrix dimension:");
     QLineEdit *dim = new QLineEdit();
@@ -92,9 +90,83 @@ MainWindow::MainWindow(QString title, int n){
     resultFrame->setLayout(resultLayout);
     resultLayout->addWidget(resultLabel);
 
+
     determinatLayout->addWidget(pulsantiera);
     determinatLayout->addWidget(matrixFrame);
     determinatLayout->addWidget(resultFrame);
+
+
+
+    //addition
+
+
+
+    QVBoxLayout *additionLayout = new QVBoxLayout;
+    QWidget *pulsantieraAdd = new QWidget;
+    QLabel *descrAdd = new QLabel("Insert matrices dimensions:");
+    QLineEdit *dimAdd1 = new QLineEdit();
+    QLineEdit *dimAdd2 = new QLineEdit();
+    QPushButton *resizeAdd = new QPushButton("Resize");
+    QPushButton *calcAdd = new QPushButton("Calculate");
+    dimAdd1->setFixedWidth(50);
+    dimAdd2->setFixedWidth(50);
+    QHBoxLayout *pulsantieraLayoutAdd = new QHBoxLayout;
+
+    pulsantieraAdd->setLayout(pulsantieraLayoutAdd);
+    pulsantieraLayoutAdd->addWidget(descrAdd);
+    pulsantieraLayoutAdd->addWidget(dimAdd1);
+    pulsantieraLayoutAdd->addWidget(dimAdd2);
+    pulsantieraLayoutAdd->addWidget(resizeAdd);
+    pulsantieraLayoutAdd->addWidget(calcAdd);
+
+    additionLayout->addWidget(pulsantieraAdd);
+    addition->setLayout(additionLayout);
+
+    QWidget *addMatrixFrame = new QWidget;
+    QWidget *matrix1 = new QWidget;
+    QWidget *matrix2 = new QWidget;
+    QWidget *matrix3 = new QWidget;
+    QHBoxLayout *matriciesAdd = new QHBoxLayout;
+
+    QGridLayout *grigliaAdd1 = new QGridLayout();
+    QGridLayout *grigliaAdd2 = new QGridLayout();
+    QGridLayout *grigliaAdd3 = new QGridLayout();
+    for(int i=0;i<r1;i++){
+        add1.append(QVector<QLineEdit*>());
+        add2.append(QVector<QLineEdit*>());
+        resAdd.append(QVector<QLineEdit*>());
+        for(int j=0;j<c1;j++){
+            add1[i].append(new QLineEdit);
+            add2[i].append(new QLineEdit);
+            resAdd[i].append(new QLineEdit);
+        }
+    }
+    for(int i=0;i<r1;i++){
+        for(int j=0;j<c1;j++){
+            add1[i][j]->setFixedSize(30,30);
+            add1[i][j]->setText("0");
+            add1[i][j]->setAlignment(Qt::AlignCenter);
+            grigliaAdd1->addWidget(add1[i][j],i,j);
+            add2[i][j]->setFixedSize(30,30);
+            add2[i][j]->setText("0");
+            add2[i][j]->setAlignment(Qt::AlignCenter);
+            grigliaAdd2->addWidget(add2[i][j],i,j);
+            resAdd[i][j]->setFixedSize(30,30);
+            resAdd[i][j]->setText("0");
+            resAdd[i][j]->setAlignment(Qt::AlignCenter);
+            grigliaAdd3->addWidget(resAdd[i][j],i,j);
+        }
+    }
+    matriciesAdd->addWidget(matrix1);
+    matriciesAdd->addWidget(matrix2);
+    matriciesAdd->addWidget(matrix3);
+    matrix1->setLayout(grigliaAdd1);
+    matrix2->setLayout(grigliaAdd2);
+    matrix3->setLayout(grigliaAdd3);
+    addMatrixFrame->setLayout(matriciesAdd);
+    additionLayout->addWidget(addMatrixFrame);
+
+
 
     this->connect(calc,&QPushButton::clicked,
         [this, resultLabel](){
@@ -114,13 +186,13 @@ void MainWindow::calculateDeterminant(QLabel *label){
     Matrix m(c1);
     for(int i=0;i<c1;i++){
         for(int j=0;j<c1;j++){
-            qDebug() << c1;
             int x = matrix.at(i).at(j)->text().toInt();
             m.setCella(i,j,x);
         }
     }
     int det = m.calcolaDeterminanteRicorsiva();
     label->setText("Determinat: " + QString::number(det));
+    label->setAlignment(Qt::AlignCenter);
 
 }
 
