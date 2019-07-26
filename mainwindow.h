@@ -41,9 +41,14 @@ private:
     QVector<QVector<QLineEdit*>> add1;
     QVector<QVector<QLineEdit*>> add2;
     QVector<QVector<QLineEdit*>> resAdd;
+    QVector<QVector<QLineEdit*>> mul1;
+    QVector<QVector<QLineEdit*>> mul2;
+    QVector<QVector<QLineEdit*>> resMul;
     int n;
     int r1;
     int c1;
+    int rp;
+    int cp;
 };
 
 #endif // MAINWINDOW_H

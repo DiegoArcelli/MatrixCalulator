@@ -15,6 +15,8 @@ MainWindow::MainWindow(QString title, int n){
     this->n = n;
     c1 = n;
     r1 = n;
+    cp = n;
+    rp = n;
     QWidget *selectorFrame = new QWidget(this); //frame del selezionatore
     QWidget *mainFrame = new QWidget(this); //frame della parte operativa
     QGridLayout *frameLayout = new QGridLayout(); //layout della finestra
@@ -167,6 +169,78 @@ MainWindow::MainWindow(QString title, int n){
     matrix3 ->setLayout(grigliaAdd3);
     addMatrixFrame->setLayout(matriciesAdd);
     additionLayout->addWidget(addMatrixFrame);
+
+
+    //mutiliplcaaaa
+
+    QVBoxLayout *mulLayout = new QVBoxLayout;
+    QWidget *pulsantieraMul = new QWidget;
+    QLabel *descrMul = new QLabel("Insert matrices dimensions:");
+    QLineEdit *dimMul1 = new QLineEdit();
+    QLineEdit *dimMul2 = new QLineEdit();
+    QPushButton *resizeMul = new QPushButton("Resize");
+    QPushButton *calcMul = new QPushButton("Calculate");
+    dimMul1->setFixedWidth(50);
+    dimMul2->setFixedWidth(50);
+    QHBoxLayout *pulsantieraLayoutMul = new QHBoxLayout;
+
+    pulsantieraMul->setLayout(pulsantieraLayoutMul);
+    pulsantieraLayoutMul->addWidget(descrMul);
+    pulsantieraLayoutMul->addWidget(dimMul1);
+    pulsantieraLayoutMul->addWidget(per);
+    pulsantieraLayoutMul->addWidget(dimMul2);
+    pulsantieraLayoutMul->addWidget(resizeMul);
+    pulsantieraLayoutMul->addWidget(calcMul);
+
+    mulLayout->addWidget(pulsantieraMul);
+    multiplication->setLayout(mulLayout);
+
+    QWidget *mulMatrixFrame = new QWidget;
+    QWidget *matrix1mul = new QWidget;
+    QWidget *matrix2mul = new QWidget;
+    QWidget *matrix3mul = new QWidget;
+    QLabel *prod = new QLabel("x");
+    QHBoxLayout *matriciesMul = new QHBoxLayout;
+
+    QGridLayout *grigliaMul1 = new QGridLayout();
+    QGridLayout *grigliaMul2 = new QGridLayout();
+    QGridLayout *grigliaMul3 = new QGridLayout();
+    for(int i=0;i<rp;i++){
+        mul1.append(QVector<QLineEdit*>());
+        mul2.append(QVector<QLineEdit*>());
+        resMul.append(QVector<QLineEdit*>());
+        for(int j=0;j<cp;j++){
+            mul1[i].append(new QLineEdit);
+            mul2[i].append(new QLineEdit);
+            resMul[i].append(new QLineEdit);
+        }
+    }
+    for(int i=0;i<rp;i++){
+        for(int j=0;j<cp;j++){
+            mul1[i][j]->setFixedSize(30,30);
+            mul1[i][j]->setText("0");
+            mul1[i][j]->setAlignment(Qt::AlignCenter);
+            grigliaMul1->addWidget(mul1[i][j],i,j);
+            mul2[i][j]->setFixedSize(30,30);
+            mul2[i][j]->setText("0");
+            mul2[i][j]->setAlignment(Qt::AlignCenter);
+            grigliaMul2->addWidget(mul2[i][j],i,j);
+            resMul[i][j]->setFixedSize(30,30);
+            resMul[i][j]->setText("0");
+            resMul[i][j]->setAlignment(Qt::AlignCenter);
+            grigliaMul3->addWidget(resMul[i][j],i,j);
+        }
+    }
+    matriciesMul->addWidget(matrix1mul);
+    matriciesMul->addWidget(prod);
+    matriciesMul->addWidget(matrix2mul);
+    matriciesMul->addWidget(equal);
+    matriciesMul->addWidget(matrix3mul);
+    matrix1mul->setLayout(grigliaMul1);
+    matrix2mul->setLayout(grigliaMul2);
+    matrix3mul->setLayout(grigliaMul3);
+    mulMatrixFrame->setLayout(matriciesMul);
+    mulLayout->addWidget(mulMatrixFrame);
 
 
 

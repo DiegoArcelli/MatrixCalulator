@@ -1,5 +1,10 @@
 #ifndef MATRIX_H
 #define MATRIX_H
+#include <ctime>
+#include <cstdlib>
+#include <iostream>
+#include <cmath>
+#include <QDebug>
 
 class Matrix {
 private:
@@ -11,8 +16,6 @@ private:
 public:
     Matrix(int n);
     Matrix(int r, int c);
-    void genera();
-    void visualizza();
     void setCella(int i, int j, int x);
     int getCella(int i, int j);
     int getRighe();
@@ -20,6 +23,7 @@ public:
     Matrix somma(Matrix add);
     int calcolaDeterminanteRicorsiva();
     static Matrix somma(Matrix add1, Matrix add2);
+    static Matrix prodotto(Matrix mul1, Matrix mul2);
 
 };
 

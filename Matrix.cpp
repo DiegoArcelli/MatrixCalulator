@@ -1,9 +1,4 @@
 #include "Matrix.h"
-#include <ctime>
-#include <cstdlib>
-#include <iostream>
-#include <cmath>
-#include <QDebug>
 
 Matrix::Matrix(int n){
     this->r = n;
@@ -20,24 +15,6 @@ Matrix::Matrix(int r, int c){
     mat = new int*[r];
     for(int i=0;i<r;i++){
         mat[i] = new int[c];
-    }
-}
-
-void Matrix::genera(){
-    srand(time(0));
-    for(int i=0;i<this->r;i++){
-        for(int j=0;j<this->c;j++){
-            mat[i][j]=(rand() % 10);
-        }
-    }
-}
-
-void Matrix::visualizza(){
-    for(int i=0;i<r;i++){
-        for(int j=0;j<c;j++){
-            std::cout << mat[i][j] << " ";
-        }
-        std::cout << "\n";
     }
 }
 
@@ -110,7 +87,7 @@ int Matrix::calcolaDeterminanteRicorsiva(){
     if(r==c)
         return calcolaDeterminanteRicorsiva(mat,r);
     else
-        qDebug() << "La matrice non è quadrata";
+        return 0;
 }
 
 
@@ -124,7 +101,25 @@ Matrix Matrix::somma(Matrix add1, Matrix add2){
         }
         return res;
     } else {
-        std::cout << "Le matrici non hanno la stessa dimensione";
+        return NULL;
     }
 }
 
+Matrix Matrix::prodotto(Matrix mul1, Matrix mul2){
+    if(mul1.getColonne()==mul2.getRighe()){
+        Matrix res(mul1.getRighe(),mul2.getColonne());
+        int sum=0;
+        for(int i=0;i<res.getRighe();i++){
+            for(int j=0;j<res.getColonne();j++){
+                sum=0;
+                for(int k=0;k<mul1.getColonne();k++){
+                    sum+=mul1.getCella(i,k)*mul2.getCella(k,j);
+                }
+                res.setCella(i,j,sum);
+            }
+        }
+        return res;
+    } else {
+        return NULL;
+    }
+}
