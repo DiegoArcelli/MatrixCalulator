@@ -19,6 +19,7 @@ public:
     int getColonne();
     Matrix somma(Matrix add);
     int calcolaDeterminanteRicorsiva();
+    static Matrix somma(Matrix add1, Matrix add2);
 
 };
 

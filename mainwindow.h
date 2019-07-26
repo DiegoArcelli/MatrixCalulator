@@ -32,13 +32,16 @@ public:
     int getR2();
 public slots:
    void calculateDeterminant(QLabel *label);
+   void calculateAddition();
    void resizeDeterminantMatrix(QGridLayout *griglia, QLineEdit* dim, QWidget *matrixFrame);
+   void resizeAdditionMatrix(QGridLayout *grigliaAdd1, QGridLayout *grigliaAdd2, QGridLayout *grigliaAdd3, QLineEdit *dimAdd1, QLineEdit *dimAdd2, QWidget *matrix1, QWidget *matrix2, QWidget *matrix3);
 private:
     Ui::MainWindow *ui;
     QVector<QVector<QLineEdit*>> matrix;
     QVector<QVector<QLineEdit*>> add1;
     QVector<QVector<QLineEdit*>> add2;
     QVector<QVector<QLineEdit*>> resAdd;
+    int n;
     int r1;
     int c1;
 };

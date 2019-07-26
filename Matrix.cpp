@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <cmath>
+#include <QDebug>
 
 Matrix::Matrix(int n){
     this->r = n;
@@ -66,7 +67,7 @@ Matrix Matrix::somma(Matrix add){
         }
         return res;
     } else {
-        std::cout << "Le matrici non hanno la stessa dimensione\n";
+        qDebug()  << "Le matrici non hanno la stessa dimensione\n";
         return NULL;
     }
 }
@@ -109,5 +110,21 @@ int Matrix::calcolaDeterminanteRicorsiva(){
     if(r==c)
         return calcolaDeterminanteRicorsiva(mat,r);
     else
-        std::cout << "La matrice non è quadrata";
+        qDebug() << "La matrice non è quadrata";
 }
+
+
+Matrix Matrix::somma(Matrix add1, Matrix add2){
+    if(add1.getColonne()==add2.getColonne() && add1.getRighe()==add2.getRighe()){
+        Matrix res(add1.getRighe(),add2.getColonne());
+        for(int i=0;i<add1.getRighe();i++){
+            for(int j=0;j<add2.getColonne();j++){
+                res.setCella(i,j,add1.getCella(i,j)+add2.getCella(i,j));
+            }
+        }
+        return res;
+    } else {
+        std::cout << "Le matrici non hanno la stessa dimensione";
+    }
+}
+
