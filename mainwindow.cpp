@@ -62,12 +62,16 @@ MainWindow::MainWindow(QString title, int n){
     QPushButton *calc = new QPushButton("Calculate");
     dim->setFixedWidth(50);
     QHBoxLayout *pulsantieraLayout = new QHBoxLayout;
-
+    QHBoxLayout *pulsantieraLayoutTop = new QHBoxLayout;
+    QWidget *pulsantieraTop = new QWidget;
     pulsantiera->setLayout(pulsantieraLayout);
+    pulsantieraLayout->setSizeConstraint(QLayout::SetFixedSize);
     pulsantieraLayout->addWidget(descr);
     pulsantieraLayout->addWidget(dim);
     pulsantieraLayout->addWidget(resize);
     pulsantieraLayout->addWidget(calc);
+    pulsantieraTop->setLayout(pulsantieraLayoutTop);
+    pulsantieraLayoutTop->addWidget(pulsantiera);
 
     dim->setText("3");
     QGridLayout *griglia = new QGridLayout();
@@ -102,10 +106,12 @@ MainWindow::MainWindow(QString title, int n){
     resultLayout->addWidget(resultLabel);
 
 
-    determinatLayout->addWidget(pulsantiera);
+    determinatLayout->addWidget(pulsantieraTop);
     determinatLayout->addWidget(matrixFrame);
     determinatLayout->addWidget(resultFrame);
 
+    QWidget *pulsantieraAddTop = new QWidget;
+    QHBoxLayout *pulsantieraLayoutAddTop = new QHBoxLayout;
 
     QVBoxLayout *additionLayout = new QVBoxLayout;
     QWidget *pulsantieraAdd = new QWidget;
@@ -120,7 +126,6 @@ MainWindow::MainWindow(QString title, int n){
     dimAdd1->setText("3");
     dimAdd2->setText("3");
     QHBoxLayout *pulsantieraLayoutAdd = new QHBoxLayout;
-
     pulsantieraAdd->setLayout(pulsantieraLayoutAdd);
     pulsantieraLayoutAdd->addWidget(descrAdd);
     pulsantieraLayoutAdd->addWidget(dimAdd1);
@@ -128,8 +133,11 @@ MainWindow::MainWindow(QString title, int n){
     pulsantieraLayoutAdd->addWidget(dimAdd2);
     pulsantieraLayoutAdd->addWidget(resizeAdd);
     pulsantieraLayoutAdd->addWidget(calcAdd);
+    pulsantieraLayoutAdd->setSizeConstraint(QLayout::SetFixedSize);
+    pulsantieraAddTop->setLayout(pulsantieraLayoutAddTop);
+    pulsantieraLayoutAddTop->addWidget(pulsantieraAdd);
 
-    additionLayout->addWidget(pulsantieraAdd);
+    additionLayout->addWidget(pulsantieraAddTop);
     addition->setLayout(additionLayout);
 
     QWidget *addMatrixFrame = new QWidget;
@@ -191,7 +199,8 @@ MainWindow::MainWindow(QString title, int n){
     addMatrixFrame->setLayout(addCentralizer);
     additionLayout->addWidget(addMatrixFrame);
 
-
+    QWidget *pulsantieraMulTop = new QWidget;
+    QHBoxLayout *pulsantieraLayoutMulTop = new QHBoxLayout;
     QVBoxLayout *mulLayout = new QVBoxLayout;
     QWidget *pulsantieraMul = new QWidget;
     QLabel *descrMul = new QLabel("Insert matrices dimensions:");
@@ -225,8 +234,11 @@ MainWindow::MainWindow(QString title, int n){
     pulsantieraLayoutMul->addWidget(dimMul3);
     pulsantieraLayoutMul->addWidget(resizeMul);
     pulsantieraLayoutMul->addWidget(calcMul);
+    pulsantieraLayoutMul->setSizeConstraint(QLayout::SetFixedSize);
+    pulsantieraMulTop->setLayout(pulsantieraLayoutMulTop);
+    pulsantieraLayoutMulTop->addWidget(pulsantieraMul);
 
-    mulLayout->addWidget(pulsantieraMul);
+    mulLayout->addWidget(pulsantieraMulTop);
     multiplication->setLayout(mulLayout);
 
     QWidget *mulMatrixFrame = new QWidget;
