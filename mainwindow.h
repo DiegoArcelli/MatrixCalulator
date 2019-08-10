@@ -40,6 +40,7 @@ public slots:
    void resizeMultiplicationMatrix(QGridLayout *grigliaMul1, QGridLayout *grigliaMul2, QGridLayout *grigliaMul3, QLineEdit *dimMul1, QLineEdit *dimMul2, QLineEdit *dimMul3, QLineEdit *dimMulAuto, QWidget *matrix1, QWidget *matrix2, QWidget *matrix3);
 private:
     Ui::MainWindow *ui;
+    QWidget *central;
     QVector<QVector<QLineEdit*>> matrix;
     QVector<QVector<QLineEdit*>> add1;
     QVector<QVector<QLineEdit*>> add2;
