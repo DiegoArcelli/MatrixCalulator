@@ -5,9 +5,9 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
-{
-    ui->setupUi(this);
-}
+    {
+        ui->setupUi(this);
+    }
 
 MainWindow::MainWindow(QString title, int n){
 
@@ -74,7 +74,7 @@ MainWindow::MainWindow(QString title, int n){
     pulsantieraLayoutTop->addWidget(pulsantiera);
 
     dim->setText("3");
-    QGridLayout *griglia = new QGridLayout();
+    griglia = new QGridLayout();
     for(int i=0;i<n;i++){
         matrix.append(QVector<QLineEdit*>());
         for(int j=0;j<n;j++){
@@ -150,9 +150,9 @@ MainWindow::MainWindow(QString title, int n){
     equal->setAlignment(Qt::AlignCenter);
     QHBoxLayout *matriciesAdd = new QHBoxLayout;
 
-    QGridLayout *grigliaAdd1 = new QGridLayout();
-    QGridLayout *grigliaAdd2 = new QGridLayout();
-    QGridLayout *grigliaAdd3 = new QGridLayout();
+    grigliaAdd1 = new QGridLayout();
+    grigliaAdd2 = new QGridLayout();
+    grigliaAdd3 = new QGridLayout();
     grigliaAdd1->setSizeConstraint(QLayout::SetMaximumSize);
     grigliaAdd2->setSizeConstraint(QLayout::SetMaximumSize);
     grigliaAdd3->setSizeConstraint(QLayout::SetMaximumSize);
@@ -251,9 +251,9 @@ MainWindow::MainWindow(QString title, int n){
     prodEq->setAlignment(Qt::AlignCenter);
     QHBoxLayout *matriciesMul = new QHBoxLayout;
 
-    QGridLayout *grigliaMul1 = new QGridLayout();
-    QGridLayout *grigliaMul2 = new QGridLayout();
-    QGridLayout *grigliaMul3 = new QGridLayout();
+    grigliaMul1 = new QGridLayout();
+    grigliaMul2 = new QGridLayout();
+    grigliaMul3 = new QGridLayout();
     for(int i=0;i<rp;i++){
         mul1.append(QVector<QLineEdit*>());
         mul2.append(QVector<QLineEdit*>());
@@ -303,20 +303,20 @@ MainWindow::MainWindow(QString title, int n){
     );
 
     this->connect(resize,&QPushButton::clicked,
-        [this,griglia,dim,subMatrixFrame](){
-            resizeDeterminantMatrix(griglia,dim,subMatrixFrame);
+        [this,dim,subMatrixFrame](){
+            resizeDeterminantMatrix(dim,subMatrixFrame);
         }
     );
 
     this->connect(resizeAdd,&QPushButton::clicked,
-        [this,grigliaAdd1,grigliaAdd2,grigliaAdd3,dimAdd1,dimAdd2,matrix1,matrix2,matrix3](){
-            resizeAdditionMatrix(grigliaAdd1,grigliaAdd2,grigliaAdd3,dimAdd1,dimAdd2,matrix1,matrix2,matrix3);
+        [this,dimAdd1,dimAdd2,matrix1,matrix2,matrix3](){
+            resizeAdditionMatrix(dimAdd1,dimAdd2,matrix1,matrix2,matrix3);
         }
     );
 
     this->connect(resizeMul,&QPushButton::clicked,
-        [this,grigliaMul1,grigliaMul2,grigliaMul3,dimMul1,dimMul2,dimMul3,dimMulAuto,matrix1mul,matrix2mul,matrix3mul](){
-            resizeMultiplicationMatrix(grigliaMul1,grigliaMul2,grigliaMul3,dimMul1,dimMul2,dimMul3,dimMulAuto,matrix1mul,matrix2mul,matrix3mul);
+        [this,dimMul1,dimMul2,dimMul3,dimMulAuto,matrix1mul,matrix2mul,matrix3mul](){
+            resizeMultiplicationMatrix(dimMul1,dimMul2,dimMul3,dimMulAuto,matrix1mul,matrix2mul,matrix3mul);
         }
     );
 
@@ -389,7 +389,7 @@ void MainWindow::calculateProduct(){
     }
 }
 
-void MainWindow::resizeDeterminantMatrix(QGridLayout *griglia, QLineEdit* dim, QWidget *matrixFrame){
+void MainWindow::resizeDeterminantMatrix(QLineEdit* dim, QWidget *matrixFrame){
     int x = dim->text().toInt();
     for(int i=0;i<n;i++){
         for(int j=0;j<n;j++){
@@ -420,7 +420,7 @@ void MainWindow::resizeDeterminantMatrix(QGridLayout *griglia, QLineEdit* dim, Q
     matrixFrame->update();
 }
 
-void MainWindow::resizeAdditionMatrix(QGridLayout *grigliaAdd1, QGridLayout *grigliaAdd2, QGridLayout *grigliaAdd3, QLineEdit *dimAdd1, QLineEdit *dimAdd2, QWidget *matrix1, QWidget *matrix2, QWidget *matrix3){
+void MainWindow::resizeAdditionMatrix(QLineEdit *dimAdd1, QLineEdit *dimAdd2, QWidget *matrix1, QWidget *matrix2, QWidget *matrix3){
     int x1 = dimAdd1->text().toInt();
     int x2 = dimAdd2->text().toInt();
     for(int i=0;i<r1;i++){
@@ -507,7 +507,7 @@ void MainWindow::resizeAdditionMatrix(QGridLayout *grigliaAdd1, QGridLayout *gri
     matrix3->update();
 }
 
-void MainWindow::resizeMultiplicationMatrix(QGridLayout *grigliaMul1, QGridLayout *grigliaMul2, QGridLayout *grigliaMul3, QLineEdit *dimMul1, QLineEdit *dimMul2, QLineEdit *dimMul3, QLineEdit *dimMulAuto, QWidget *matrix1, QWidget *matrix2, QWidget *matrix3){
+void MainWindow::resizeMultiplicationMatrix(QLineEdit *dimMul1, QLineEdit *dimMul2, QLineEdit *dimMul3, QLineEdit *dimMulAuto, QWidget *matrix1, QWidget *matrix2, QWidget *matrix3){
     int x1 = dimMul1->text().toInt();
     int x2 = dimMul2->text().toInt();
     int x3 = dimMul3->text().toInt();

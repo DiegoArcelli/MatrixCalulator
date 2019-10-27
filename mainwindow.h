@@ -35,9 +35,9 @@ public slots:
    void calculateDeterminant(QLabel *label);
    void calculateAddition();
    void calculateProduct();
-   void resizeDeterminantMatrix(QGridLayout **griglia, QLineEdit* dim, QWidget *matrixFrame);
-   void resizeAdditionMatrix(QGridLayout *grigliaAdd1, QGridLayout *grigliaAdd2, QGridLayout *grigliaAdd3, QLineEdit *dimAdd1, QLineEdit *dimAdd2, QWidget *matrix1, QWidget *matrix2, QWidget *matrix3);
-   void resizeMultiplicationMatrix(QGridLayout *grigliaMul1, QGridLayout *grigliaMul2, QGridLayout *grigliaMul3, QLineEdit *dimMul1, QLineEdit *dimMul2, QLineEdit *dimMul3, QLineEdit *dimMulAuto, QWidget *matrix1, QWidget *matrix2, QWidget *matrix3);
+   void resizeDeterminantMatrix(QLineEdit* dim, QWidget *matrixFrame);
+   void resizeAdditionMatrix(QLineEdit *dimAdd1, QLineEdit *dimAdd2, QWidget *matrix1, QWidget *matrix2, QWidget *matrix3);
+   void resizeMultiplicationMatrix(QLineEdit *dimMul1, QLineEdit *dimMul2, QLineEdit *dimMul3, QLineEdit *dimMulAuto, QWidget *matrix1, QWidget *matrix2, QWidget *matrix3);
 private:
     Ui::MainWindow *ui;
     QWidget *central;
@@ -48,6 +48,13 @@ private:
     QVector<QVector<QLineEdit*>> mul1;
     QVector<QVector<QLineEdit*>> mul2;
     QVector<QVector<QLineEdit*>> resMul;
+    QGridLayout *griglia;
+    QGridLayout *grigliaAdd1;
+    QGridLayout *grigliaAdd2;
+    QGridLayout *grigliaAdd3;
+    QGridLayout *grigliaMul1;
+    QGridLayout *grigliaMul2;
+    QGridLayout *grigliaMul3;
     int n;
     int r1;
     int c1;
