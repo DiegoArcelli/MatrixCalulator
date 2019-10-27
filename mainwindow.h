@@ -35,7 +35,7 @@ public slots:
    void calculateDeterminant(QLabel *label);
    void calculateAddition();
    void calculateProduct();
-   void resizeDeterminantMatrix(QGridLayout *griglia, QLineEdit* dim, QWidget *matrixFrame);
+   void resizeDeterminantMatrix(QGridLayout **griglia, QLineEdit* dim, QWidget *matrixFrame);
    void resizeAdditionMatrix(QGridLayout *grigliaAdd1, QGridLayout *grigliaAdd2, QGridLayout *grigliaAdd3, QLineEdit *dimAdd1, QLineEdit *dimAdd2, QWidget *matrix1, QWidget *matrix2, QWidget *matrix3);
    void resizeMultiplicationMatrix(QGridLayout *grigliaMul1, QGridLayout *grigliaMul2, QGridLayout *grigliaMul3, QLineEdit *dimMul1, QLineEdit *dimMul2, QLineEdit *dimMul3, QLineEdit *dimMulAuto, QWidget *matrix1, QWidget *matrix2, QWidget *matrix3);
 private:
